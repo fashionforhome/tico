@@ -7,7 +7,7 @@ return array(
 	'pdfOutputPath' => storage_path() . '/output/output.pdf',
 	'imagePath' => array(
 		'Bug' => storage_path() . '/images/bug.png',
-		'Epic' => storage_path() . '/images/Batman.png',
+		'Epic' => storage_path() . '/images/epic.png',
 		'MotherShip' => storage_path() . '/images/mothership.png'
 	),
 	'successMessage' => 'Your Tickets will be printed now',
