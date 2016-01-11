@@ -1,4 +1,4 @@
-#TiCo 
+#TiCo [![Dependency Status](https://www.versioneye.com/user/projects/5693a393e4a27d000a0003ed/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5693a393e4a27d000a0003ed)
 
 A web application which let you print jira issues as real paper tickets. 
 
