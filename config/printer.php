@@ -10,5 +10,6 @@ return array(
 		'Epic' => storage_path() . '/images/Batman.png',
 		'MotherShip' => storage_path() . '/images/mothership.png'
 	),
-	'successMessage' => 'Your Tickets will be printed now'
+	'successMessage' => 'Your Tickets will be printed now',
+	'errorMessage' => 'The following tickets could not be printed: '
 );
