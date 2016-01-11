@@ -3,8 +3,11 @@
 A web application which let you print jira issues as real paper tickets. 
 
 Requirements:
+
 [Apache FOP](https://xmlgraphics.apache.org/fop/)
+
 [CUPS](https://de.wikipedia.org/wiki/Common_Unix_Printing_System)
+
 [Jira](https://de.atlassian.com/software/jira)
 
 Please see our [Wiki](https://github.com/fashionforhome/tico/wiki) for guides on how to setup and contribute to "TiCo".
