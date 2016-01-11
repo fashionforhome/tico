@@ -1,0 +1,23 @@
+body {
+	font-family: sans-serif;
+	color: #4C4C4C;
+	font-size: 12px;
+}
+
+.tc {
+	width: 700px;
+	float: left;
+}
+
+.tc .header {
+	font-family: sans-serif;
+	background-color: #666;
+	color: #F7F7F2 !important;
+	padding: 10px;
+}
+
+.tc .header h2 {
+	font-size: 18px;
+	padding: 10px 20px;
+	margin: 0;
+}

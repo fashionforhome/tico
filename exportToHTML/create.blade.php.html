@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>create.blade.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { }
+.s4 { }
+.s5 { color: rgb(0,0,128); font-weight: bold; }
+.s6 { color: rgb(0,0,255); font-weight: bold; }
+.s7 { color: rgb(0,128,0); font-weight: bold; }
+.s8 { color: rgb(0,0,0); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+create.blade.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">@extends(</span><span class="s2">'app'</span><span class="s0">)</span><span class="s3"> 
+ 
+</span><span class="s0">@section(</span><span class="s2">'content'</span><span class="s0">)</span><span class="s3"> 
+</span><span class="s4">&lt;</span><span class="s5">h1</span><span class="s4">&gt;</span><span class="s3">Create New Project</span><span class="s4">&lt;/</span><span class="s5">h1</span><span class="s4">&gt;</span><span class="s3"> 
+</span><span class="s4">&lt;</span><span class="s5">a </span><span class="s6">href=</span><span class="s7">&quot;</span><span class="s3">{{ </span><span class="s8">action</span><span class="s1">(</span><span class="s2">'ProjectController@index'</span><span class="s1">)</span><span class="s3">}}</span><span class="s7">&quot;</span><span class="s4">&gt;</span><span class="s3">Back to the Projects</span><span class="s4">&lt;/</span><span class="s5">a</span><span class="s4">&gt;</span><span class="s3"> 
+ 
+{!! Form::open(['action' =&gt;'ProjectController</span><span class="s0">@index</span><span class="s3">']) !!} 
+ 
+    </span><span class="s0">@include(</span><span class="s2">'projects.partials.form'</span><span class="s0">)</span><span class="s3"> 
+    </span><span class="s0">@include(</span><span class="s2">'projects.partials.button'</span><span class="s1">, [</span><span class="s2">'submitButtonText' </span><span class="s1">=&gt; </span><span class="s2">'Add Project'</span><span class="s1">]</span><span class="s0">)</span><span class="s3"> 
+ 
+{!! Form::close() !!} 
+ 
+</span><span class="s0">@include(</span><span class="s2">'errors.list'</span><span class="s0">)</span><span class="s3"> 
+ 
+</span><span class="s0">@stop</span></pre>
+</body>
+</html>

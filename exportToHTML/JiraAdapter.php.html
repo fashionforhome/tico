@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>JiraAdapter.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(102,0,0); }
+.s6 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+JiraAdapter.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Adapter</span><span class="s1">; 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Parser</span><span class="s1">\</span><span class="s2">JiraParser</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Guzzle</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Client</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Guzzle</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Exception</span><span class="s1">\</span><span class="s2">ClientErrorResponseException</span><span class="s1">; 
+ 
+</span><span class="s3">/** 
+ * adapter for fetching issue data from an jira endpoint 
+ * 
+ * Class JiraAdapter 
+ */</span><span class="s1"> 
+</span><span class="s0">class </span><span class="s2">JiraAdapter</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@var </span><span class="s3">\Guzzle\Http\Client 
+     */</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s5">$client</span><span class="s1">; 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@var </span><span class="s3">JiraParser 
+     */</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s5">$parser</span><span class="s1">; 
+ 
+    </span><span class="s3">/** 
+     * 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">__construct</span><span class="s1">() 
+    { 
+        </span><span class="s3">// init the client</span><span class="s1"> 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">client </span><span class="s1">= </span><span class="s0">new </span><span class="s2">Client</span><span class="s1">(); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">client</span><span class="s1">-&gt;</span><span class="s2">setDefaultOption</span><span class="s1">(</span><span class="s6">'auth'</span><span class="s1">, [</span><span class="s2">env</span><span class="s1">(</span><span class="s6">'JIRA_USERNAME'</span><span class="s1">), </span><span class="s2">env</span><span class="s1">(</span><span class="s6">'JIRA_PASSWORD'</span><span class="s1">)]); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">client</span><span class="s1">-&gt;</span><span class="s2">setDefaultOption</span><span class="s1">(</span><span class="s6">'verify'</span><span class="s1">, </span><span class="s2">false</span><span class="s1">); 
+ 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">parser </span><span class="s1">= </span><span class="s0">new </span><span class="s2">JiraParser</span><span class="s1">(</span><span class="s2">config</span><span class="s1">(</span><span class="s6">'jira.BaseUrl'</span><span class="s1">)); 
+    } 
+ 
+    </span><span class="s3">/** 
+     * builds an api endpoint url 
+     * 
+     * </span><span class="s4">@param </span><span class="s3">string $ticketIdentifier 
+     * </span><span class="s4">@return </span><span class="s3">string 
+     */</span><span class="s1"> 
+    </span><span class="s0">private function </span><span class="s2">buildTicketUrl</span><span class="s1">(</span><span class="s5">$ticketIdentifier</span><span class="s1">) 
+    { 
+        </span><span class="s0">return </span><span class="s2">config</span><span class="s1">(</span><span class="s6">'jira.baseUrl'</span><span class="s1">) . </span><span class="s5">$ticketIdentifier</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s3">/** 
+     * returns an array of issue and error data 
+     * 
+     * </span><span class="s4">@param </span><span class="s3">array $ticketList 
+     * </span><span class="s4">@return </span><span class="s3">array[] 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">getIssuesByKeys</span><span class="s1">(</span><span class="s5">$ticketList </span><span class="s1">= </span><span class="s0">array</span><span class="s1">()) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">empty</span><span class="s1">(</span><span class="s5">$ticketList</span><span class="s1">)) { 
+            </span><span class="s0">return </span><span class="s5">$ticketList</span><span class="s1">; 
+        } 
+ 
+        </span><span class="s5">$tickets </span><span class="s1">= </span><span class="s0">array</span><span class="s1">(); 
+        </span><span class="s5">$errors  </span><span class="s1">= </span><span class="s0">array</span><span class="s1">(); 
+        </span><span class="s5">$results </span><span class="s1">= </span><span class="s0">array</span><span class="s1">(); 
+ 
+        </span><span class="s0">foreach </span><span class="s1">(</span><span class="s5">$ticketList </span><span class="s0">as </span><span class="s5">$ticketIdentifier</span><span class="s1">) { 
+            </span><span class="s5">$resJson </span><span class="s1">= </span><span class="s6">''</span><span class="s1">; 
+            </span><span class="s5">$req     </span><span class="s1">= </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">client</span><span class="s1">-&gt;</span><span class="s2">get</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buildTicketUrl</span><span class="s1">(</span><span class="s5">$ticketIdentifier</span><span class="s1">), </span><span class="s0">array</span><span class="s1">()); 
+            </span><span class="s5">$req</span><span class="s1">-&gt;</span><span class="s2">setHeader</span><span class="s1">(</span><span class="s6">'Content-Type'</span><span class="s1">, </span><span class="s6">'application/json'</span><span class="s1">); 
+            </span><span class="s0">try </span><span class="s1">{ 
+                </span><span class="s5">$res     </span><span class="s1">= </span><span class="s5">$req</span><span class="s1">-&gt;</span><span class="s2">send</span><span class="s1">(</span><span class="s5">$req</span><span class="s1">); 
+                </span><span class="s5">$resJson </span><span class="s1">= </span><span class="s5">$res</span><span class="s1">-&gt;</span><span class="s2">json</span><span class="s1">(); 
+            } </span><span class="s0">catch </span><span class="s1">(</span><span class="s2">ClientErrorResponseException </span><span class="s5">$e</span><span class="s1">) { 
+                </span><span class="s5">$errors</span><span class="s1">[] = </span><span class="s5">$ticketIdentifier</span><span class="s1">; 
+            } 
+ 
+            </span><span class="s0">if </span><span class="s1">(!</span><span class="s0">empty</span><span class="s1">(</span><span class="s5">$resJson</span><span class="s1">)) { 
+                </span><span class="s5">$tickets</span><span class="s1">[] = </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">parser</span><span class="s1">-&gt;</span><span class="s2">parseIssue</span><span class="s1">(</span><span class="s5">$resJson</span><span class="s1">); 
+            } 
+        } 
+ 
+        </span><span class="s5">$results</span><span class="s1">[</span><span class="s6">'tickets'</span><span class="s1">] = </span><span class="s5">$tickets</span><span class="s1">; 
+        </span><span class="s5">$results</span><span class="s1">[</span><span class="s6">'errors'</span><span class="s1">]  = </span><span class="s5">$errors</span><span class="s1">; 
+ 
+        </span><span class="s0">return </span><span class="s5">$results</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">$ticketIdentifier 
+     * </span><span class="s4">@return </span><span class="s3">array|\mixed[] 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">getEpicTicketData</span><span class="s1">(</span><span class="s5">$ticketIdentifier</span><span class="s1">) 
+    { 
+        </span><span class="s5">$errors </span><span class="s1">= </span><span class="s0">array</span><span class="s1">(); 
+        </span><span class="s5">$result </span><span class="s1">= </span><span class="s0">array</span><span class="s1">(); 
+ 
+        </span><span class="s5">$req </span><span class="s1">= </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">client</span><span class="s1">-&gt;</span><span class="s2">get</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buildTicketUrl</span><span class="s1">(</span><span class="s5">$ticketIdentifier</span><span class="s1">), </span><span class="s0">array</span><span class="s1">()); 
+        </span><span class="s5">$req</span><span class="s1">-&gt;</span><span class="s2">setHeader</span><span class="s1">(</span><span class="s6">'Content-Type'</span><span class="s1">, </span><span class="s6">'application/json'</span><span class="s1">); 
+        </span><span class="s0">try </span><span class="s1">{ 
+            </span><span class="s5">$res     </span><span class="s1">= </span><span class="s5">$req</span><span class="s1">-&gt;</span><span class="s2">send</span><span class="s1">(</span><span class="s5">$req</span><span class="s1">); 
+            </span><span class="s5">$resJson </span><span class="s1">= </span><span class="s5">$res</span><span class="s1">-&gt;</span><span class="s2">json</span><span class="s1">(); 
+        } </span><span class="s0">catch </span><span class="s1">(</span><span class="s2">ClientErrorResponseException </span><span class="s5">$e</span><span class="s1">) { 
+            </span><span class="s5">$errors</span><span class="s1">[] = </span><span class="s5">$ticketIdentifier</span><span class="s1">; 
+        } 
+ 
+        </span><span class="s0">if </span><span class="s1">(!</span><span class="s0">empty</span><span class="s1">(</span><span class="s5">$resJson</span><span class="s1">)) { 
+            </span><span class="s5">$result </span><span class="s1">= </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">parser</span><span class="s1">-&gt;</span><span class="s2">parseEpic</span><span class="s1">(</span><span class="s5">$resJson</span><span class="s1">); 
+        } 
+ 
+        </span><span class="s0">return </span><span class="s5">$result</span><span class="s1">; 
+    } 
+}</span></pre>
+</body>
+</html>

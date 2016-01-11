@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Ticket.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(102,0,0); }
+.s6 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Ticket.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">; 
+ 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Database</span><span class="s1">\</span><span class="s2">Eloquent</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Support</span><span class="s1">\</span><span class="s2">Facades</span><span class="s1">\</span><span class="s2">Config</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">Ticket </span><span class="s0">extends </span><span class="s2">Model</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * Indicates if the model should be timestamped. 
+     * 
+     * </span><span class="s4">@var </span><span class="s3">bool 
+     */</span><span class="s1"> 
+    </span><span class="s0">public </span><span class="s5">$timestamps </span><span class="s1">= </span><span class="s2">false</span><span class="s1">; 
+ 
+    </span><span class="s0">protected </span><span class="s5">$fillable </span><span class="s1">= [ 
+        </span><span class="s6">'id'</span><span class="s1">, 
+        </span><span class="s6">'project_id'</span><span class="s1"> 
+    ]; 
+ 
+    </span><span class="s3">/** 
+     * An Ticket has a project 
+     * 
+     * </span><span class="s4">@return </span><span class="s3">\Illuminate\Database\Eloquent\Relations\BelongsTo 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">project</span><span class="s1">() 
+    { 
+        </span><span class="s0">return </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">belongsTo</span><span class="s1">(</span><span class="s6">'App\Model\Project'</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@return </span><span class="s3">string 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">getTicketName</span><span class="s1">() 
+    { 
+        </span><span class="s5">$projectName </span><span class="s1">= </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">project</span><span class="s1">-&gt;</span><span class="s2">toArray</span><span class="s1">()[</span><span class="s6">'name'</span><span class="s1">]; 
+ 
+        </span><span class="s0">return </span><span class="s5">$projectName </span><span class="s1">. </span><span class="s6">'-' </span><span class="s1">. </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">id</span><span class="s1">; 
+    } 
+} 
+</span></pre>
+</body>
+</html>

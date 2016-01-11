@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>printer.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { color: rgb(0,0,0); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+printer.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">return array</span><span class="s1">( 
+    </span><span class="s2">'printerName' </span><span class="s1">=&gt; </span><span class="s2">'ticketprinter'</span><span class="s1">, 
+    </span><span class="s2">'XSLTemplatePath' </span><span class="s1">=&gt; </span><span class="s3">storage_path</span><span class="s1">() . </span><span class="s2">'/xslTemplates/ticket_to_fo.xsl'</span><span class="s1">, 
+    </span><span class="s2">'foOutputPath' </span><span class="s1">=&gt; </span><span class="s3">storage_path</span><span class="s1">() . </span><span class="s2">'/output/output.fo'</span><span class="s1">, 
+    </span><span class="s2">'pdfOutputPath' </span><span class="s1">=&gt; </span><span class="s3">storage_path</span><span class="s1">() . </span><span class="s2">'/output/output.pdf'</span><span class="s1">, 
+    </span><span class="s2">'imagePath' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+        </span><span class="s2">'Bug' </span><span class="s1">=&gt; </span><span class="s3">storage_path</span><span class="s1">() . </span><span class="s2">'/images/bug.png'</span><span class="s1">, 
+        </span><span class="s2">'Epic' </span><span class="s1">=&gt; </span><span class="s3">storage_path</span><span class="s1">() . </span><span class="s2">'/images/Batman.png'</span><span class="s1">, 
+        </span><span class="s2">'MotherShip' </span><span class="s1">=&gt; </span><span class="s3">storage_path</span><span class="s1">() . </span><span class="s2">'/images/mothership.png'</span><span class="s1"> 
+    ), 
+    </span><span class="s2">'successMessage' </span><span class="s1">=&gt; </span><span class="s2">'Your Tickets will be printed now'</span><span class="s1"> 
+);</span></pre>
+</body>
+</html>

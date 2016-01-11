@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>2015_11_02_101510_create_project_table.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
+.s6 { color: rgb(102,0,0); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+2015_11_02_101510_create_project_table.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Database</span><span class="s1">\</span><span class="s2">Schema</span><span class="s1">\</span><span class="s2">Blueprint</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Database</span><span class="s1">\</span><span class="s2">Migrations</span><span class="s1">\</span><span class="s2">Migration</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">CreateProjectTable </span><span class="s0">extends </span><span class="s2">Migration</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * Run the migrations. 
+     * 
+     * </span><span class="s4">@return </span><span class="s3">void 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">up</span><span class="s1">() 
+    { 
+        </span><span class="s2">Schema</span><span class="s1">::</span><span class="s2">create</span><span class="s1">(</span><span class="s5">'projects'</span><span class="s1">, </span><span class="s0">function </span><span class="s1">(</span><span class="s2">Blueprint </span><span class="s6">$table</span><span class="s1">) { 
+            </span><span class="s6">$table</span><span class="s1">-&gt;</span><span class="s2">increments</span><span class="s1">(</span><span class="s5">'id'</span><span class="s1">)-&gt;</span><span class="s2">unsigned</span><span class="s1">(); 
+            </span><span class="s6">$table</span><span class="s1">-&gt;</span><span class="s2">string</span><span class="s1">(</span><span class="s5">'name'</span><span class="s1">); 
+        }); 
+    } 
+ 
+    </span><span class="s3">/** 
+     * Reverse the migrations. 
+     * 
+     * </span><span class="s4">@return </span><span class="s3">void 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">down</span><span class="s1">() 
+    { 
+        </span><span class="s2">Schema</span><span class="s1">::</span><span class="s2">drop</span><span class="s1">(</span><span class="s5">'projects'</span><span class="s1">); 
+    } 
+} 
+</span></pre>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>routes.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,0,0); }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+routes.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s2">/* 
+|-------------------------------------------------------------------------- 
+| Application Routes 
+|-------------------------------------------------------------------------- 
+| 
+| Here is where you can register all of the routes for an application. 
+| It's a breeze. Simply tell Laravel the URIs it should respond to 
+| and give it the controller to call when that URI is requested. 
+| 
+*/</span><span class="s1"> 
+</span><span class="s3">Route</span><span class="s1">::</span><span class="s3">get</span><span class="s1">(</span><span class="s4">'/'</span><span class="s1">, </span><span class="s4">'IndexController@index'</span><span class="s1">); 
+</span><span class="s3">Route</span><span class="s1">::</span><span class="s3">post</span><span class="s1">(</span><span class="s4">'confirmation'</span><span class="s1">, </span><span class="s4">'IndexController@confirmation'</span><span class="s1">); 
+</span><span class="s3">Route</span><span class="s1">::</span><span class="s3">post</span><span class="s1">(</span><span class="s4">'printAction'</span><span class="s1">, </span><span class="s4">'IndexController@printAction'</span><span class="s1">); 
+ 
+</span><span class="s3">Route</span><span class="s1">::</span><span class="s3">get</span><span class="s1">(</span><span class="s4">'projects'</span><span class="s1">,</span><span class="s4">'ProjectController@index'</span><span class="s1">); 
+ 
+</span><span class="s3">Route</span><span class="s1">::</span><span class="s3">get</span><span class="s1">(</span><span class="s4">'projects/{id}/edit'</span><span class="s1">,</span><span class="s4">'ProjectController@edit'</span><span class="s1">); 
+ 
+</span><span class="s3">Route</span><span class="s1">::</span><span class="s3">resource</span><span class="s1">(</span><span class="s4">'projects'</span><span class="s1">, </span><span class="s4">'ProjectController'</span><span class="s1">);</span></pre>
+</body>
+</html>

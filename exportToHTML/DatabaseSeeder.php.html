@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>DatabaseSeeder.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(102,0,0); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+DatabaseSeeder.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Project</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Ticket</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Database</span><span class="s1">\</span><span class="s2">Seeder</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Database</span><span class="s1">\</span><span class="s2">Eloquent</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">DatabaseSeeder </span><span class="s0">extends </span><span class="s2">Seeder</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * Run the database seeds. 
+     * 
+     * </span><span class="s4">@return </span><span class="s3">void 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">run</span><span class="s1">() 
+    { 
+        </span><span class="s2">Model</span><span class="s1">::</span><span class="s2">unguard</span><span class="s1">(); 
+ 
+        </span><span class="s2">Project</span><span class="s1">::</span><span class="s2">truncate</span><span class="s1">(); 
+        </span><span class="s2">Ticket</span><span class="s1">::</span><span class="s2">truncate</span><span class="s1">(); 
+         
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">call</span><span class="s1">(</span><span class="s2">ProjectTableSeeder</span><span class="s1">::</span><span class="s0">class</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">call</span><span class="s1">(</span><span class="s2">TicketTableSeeder</span><span class="s1">::</span><span class="s0">class</span><span class="s1">); 
+ 
+        </span><span class="s2">Model</span><span class="s1">::</span><span class="s2">reguard</span><span class="s1">(); 
+    } 
+} 
+</span></pre>
+</body>
+</html>

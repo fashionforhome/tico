@@ -1,0 +1,20 @@
+{
+	"private": true,
+	"main": "gulpfile.js",
+	"keywords": [
+		"Laravel",
+		"Gulp",
+		"Bower",
+		"Bootstrap"
+	],
+	"devDependencies": {
+		"gulp": "^3.8.8",
+		"gulp-concat": "^2.4.1",
+		"gulp-uglify": "^1.0.1",
+		"gulp-rename": "^1.2.0"
+	},
+	"dependencies": {
+		"laravel-elixir": "^3.0.0",
+		"bootstrap-sass": "^3.0.0"
+	}
+}

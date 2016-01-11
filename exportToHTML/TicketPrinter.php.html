@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>TicketPrinter.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(102,0,0); }
+.s6 { font-style: italic; }
+.s7 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+TicketPrinter.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">; 
+ 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Converter</span><span class="s1">\</span><span class="s2">FoToPDFTicketConverter</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Converter</span><span class="s1">\</span><span class="s2">XsltToFoTicketConverter</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">TicketPrinter</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@var </span><span class="s3">array 
+     */</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s5">$ticketsToPrint</span><span class="s1">; 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">$ticketArray 
+     */</span><span class="s1"> 
+    </span><span class="s0">function </span><span class="s2">__construct</span><span class="s1">(</span><span class="s5">$ticketArray </span><span class="s1">= </span><span class="s0">array</span><span class="s1">()) 
+    { 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticketsToPrint </span><span class="s1">= </span><span class="s5">$ticketArray</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">array $ticketArray 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">printTickets</span><span class="s1">(</span><span class="s5">$ticketArray </span><span class="s1">= </span><span class="s0">array</span><span class="s1">()) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">empty</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticketsToPrint</span><span class="s1">)) { 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticketsToPrint </span><span class="s1">= </span><span class="s5">$ticketArray</span><span class="s1">; 
+        } 
+ 
+        </span><span class="s0">foreach </span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticketsToPrint </span><span class="s0">as </span><span class="s5">$ticket</span><span class="s1">) { 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">parseTicketToFo</span><span class="s1">(</span><span class="s5">$ticket</span><span class="s1">); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">parseTicketToPDF</span><span class="s1">(); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">sendPrintTask</span><span class="s1">(); 
+        } 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">$ticketData 
+     */</span><span class="s1"> 
+    </span><span class="s0">private function </span><span class="s2">parseTicketToFo</span><span class="s1">(</span><span class="s5">$ticketData</span><span class="s1">) 
+    { 
+        </span><span class="s5">$xlstToFoConverter </span><span class="s1">= </span><span class="s0">new </span><span class="s2">XsltToFoTicketConverter</span><span class="s1">(); 
+        </span><span class="s5">$xlstToFoConverter</span><span class="s1">-&gt;</span><span class="s2">convertTicket</span><span class="s1">(</span><span class="s5">$ticketData</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s3">/** 
+     * 
+     */</span><span class="s1"> 
+    </span><span class="s0">private function </span><span class="s2">parseTicketToPDF</span><span class="s1">() 
+    { 
+        </span><span class="s5">$foToPdfConverter </span><span class="s1">= </span><span class="s0">new </span><span class="s2">FoToPDFTicketConverter</span><span class="s1">(); 
+        </span><span class="s5">$foToPdfConverter</span><span class="s1">-&gt;</span><span class="s2">convertTicket</span><span class="s1">(); 
+    } 
+ 
+    </span><span class="s3">/** 
+     *  
+     */</span><span class="s1"> 
+    </span><span class="s0">private function </span><span class="s2">sendPrintTask</span><span class="s1">() 
+    { 
+        </span><span class="s6">exec</span><span class="s1">(</span><span class="s7">'lp -d ' </span><span class="s1">. </span><span class="s2">config</span><span class="s1">(</span><span class="s7">'printer.printerName'</span><span class="s1">) . </span><span class="s7">' -o media=A6 -o landscape ' </span><span class="s1">. </span><span class="s2">config</span><span class="s1">(</span><span class="s7">'printer.pdfOutputPath'</span><span class="s1">)); 
+    } 
+} </span></pre>
+</body>
+</html>

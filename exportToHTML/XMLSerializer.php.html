@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>XMLSerializer.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(102,0,0); }
+.s6 { font-style: italic; }
+.s7 { color: rgb(0,128,0); font-weight: bold; }
+.s8 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+XMLSerializer.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Serializer</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">XMLSerializer</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@var </span><span class="s3">\XMLWriter 
+     */</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s5">$buffer</span><span class="s1">; 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@var </span><span class="s3">Array 
+     */</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s5">$ticket</span><span class="s1">; 
+ 
+    </span><span class="s3">/** 
+     * 
+     */</span><span class="s1"> 
+    </span><span class="s0">function </span><span class="s2">__construct</span><span class="s1">() 
+    { 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer </span><span class="s1">= </span><span class="s0">new </span><span class="s1">\</span><span class="s2">XMLWriter</span><span class="s1">(); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">openMemory</span><span class="s1">(); 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">array $ticket 
+     * </span><span class="s4">@return </span><span class="s3">string 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s6">serialize</span><span class="s1">(</span><span class="s5">$ticket</span><span class="s1">) 
+    { 
+ 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeRaw</span><span class="s1">(</span><span class="s7">'&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">startElement</span><span class="s1">(</span><span class="s7">'ticket'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">generateTicket</span><span class="s1">(</span><span class="s5">$ticket</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">endElement</span><span class="s1">(); 
+ 
+        </span><span class="s0">return </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">outputMemory</span><span class="s1">(); 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">$ticket 
+     */</span><span class="s1"> 
+    </span><span class="s0">private function </span><span class="s2">generateTicket</span><span class="s1">(</span><span class="s5">$ticket</span><span class="s1">) 
+    { 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket </span><span class="s1">= </span><span class="s5">$ticket</span><span class="s1">; 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'key'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'reporter'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'issueType'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeImagePathElement</span><span class="s1">(); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'sprint'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'summary'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'devTeam'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'hasSubTasks'</span><span class="s1">); 
+        </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s7">'storyPoints'</span><span class="s1">); 
+ 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'epicData'</span><span class="s1">])) { 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">startElement</span><span class="s1">(</span><span class="s7">'epic'</span><span class="s1">); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeElement</span><span class="s1">(</span><span class="s7">'key'</span><span class="s1">, </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'epicData'</span><span class="s1">][</span><span class="s7">'key'</span><span class="s1">]); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeElement</span><span class="s1">(</span><span class="s7">'summary'</span><span class="s1">, </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'epicData'</span><span class="s1">][</span><span class="s7">'summary'</span><span class="s1">]); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">endElement</span><span class="s1">(); 
+        } 
+ 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'parentData'</span><span class="s1">])) { 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">startElement</span><span class="s1">(</span><span class="s7">'parent'</span><span class="s1">); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeElement</span><span class="s1">(</span><span class="s7">'key'</span><span class="s1">, </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'epicData'</span><span class="s1">][</span><span class="s7">'key'</span><span class="s1">]); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeElement</span><span class="s1">(</span><span class="s7">'summary'</span><span class="s1">, </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'epicData'</span><span class="s1">][</span><span class="s7">'summary'</span><span class="s1">]); 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">endElement</span><span class="s1">(); 
+        } 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">String $identifier 
+     */</span><span class="s1"> 
+    </span><span class="s0">private function </span><span class="s2">writeSingleElement</span><span class="s1">(</span><span class="s5">$identifier</span><span class="s1">) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s5">$identifier</span><span class="s1">])) { 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeElement</span><span class="s1">(</span><span class="s5">$identifier</span><span class="s1">, </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s5">$identifier</span><span class="s1">]); 
+        } 
+    } 
+ 
+    </span><span class="s3">/** 
+     *  
+     */</span><span class="s1"> 
+    </span><span class="s0">private function </span><span class="s2">writeImagePathElement</span><span class="s1">() 
+    { 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'issueType'</span><span class="s1">]) &amp;&amp; </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'issueType'</span><span class="s1">] == </span><span class="s7">'Epic' </span><span class="s1">|| </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'issueType'</span><span class="s1">] == </span><span class="s7">'Bug'</span><span class="s1">) { 
+            </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeElement</span><span class="s1">(</span><span class="s7">'imagePath'</span><span class="s1">, </span><span class="s2">config</span><span class="s1">(</span><span class="s7">'printer.imagePath'</span><span class="s1">)[</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'issueType'</span><span class="s1">]]); 
+        } </span><span class="s0">else </span><span class="s1">{ 
+            </span><span class="s3">// check for mother ship conditions</span><span class="s1"> 
+            </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'hasSubTasks'</span><span class="s1">]) &amp;&amp; 
+                </span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'issueType'</span><span class="s1">]) &amp;&amp; 
+                </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'hasSubTasks'</span><span class="s1">] == </span><span class="s8">1 </span><span class="s1">&amp;&amp; 
+                </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">ticket</span><span class="s1">[</span><span class="s7">'issueType'</span><span class="s1">] == </span><span class="s7">'Story'</span><span class="s1"> 
+            ) { 
+                </span><span class="s5">$this</span><span class="s1">-&gt;</span><span class="s2">buffer</span><span class="s1">-&gt;</span><span class="s2">writeElement</span><span class="s1">(</span><span class="s7">'imagePath'</span><span class="s1">, </span><span class="s2">config</span><span class="s1">(</span><span class="s7">'printer.imagePath'</span><span class="s1">)[</span><span class="s7">'MotherShip'</span><span class="s1">]); 
+            } 
+        } 
+    } 
+}</span></pre>
+</body>
+</html>

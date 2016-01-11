@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>FoToPDFTicketConverter.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { font-style: italic; }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
+.s6 { color: rgb(102,0,0); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+FoToPDFTicketConverter.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Converter</span><span class="s1">; 
+ 
+</span><span class="s0">use </span><span class="s2">Log</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">FoToPDFTicketConverter</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * Convert Ticket to pdf using apache FOP 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">convertTicket</span><span class="s1">() 
+    { 
+        </span><span class="s0">try </span><span class="s1">{ 
+            </span><span class="s4">shell_exec</span><span class="s1">(</span><span class="s5">'sh ' </span><span class="s1">. </span><span class="s2">env</span><span class="s1">(</span><span class="s5">'FOP_PATH'</span><span class="s1">) . </span><span class="s5">' ' </span><span class="s1">. </span><span class="s2">config</span><span class="s1">(</span><span class="s5">'printer.foOutputPath'</span><span class="s1">) . </span><span class="s5">' ' </span><span class="s1">. </span><span class="s2">config</span><span class="s1">(</span><span class="s5">'printer.pdfOutputPath'</span><span class="s1">)); 
+        } </span><span class="s0">catch </span><span class="s1">(\</span><span class="s2">Exception </span><span class="s6">$e</span><span class="s1">) { 
+            </span><span class="s2">Log</span><span class="s1">::</span><span class="s2">error</span><span class="s1">(</span><span class="s6">$e</span><span class="s1">-&gt;</span><span class="s2">getMessage</span><span class="s1">()); 
+        } 
+    } 
+}</span></pre>
+</body>
+</html>

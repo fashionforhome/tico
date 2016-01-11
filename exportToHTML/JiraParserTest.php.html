@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>JiraParserTest.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(102,0,0); }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+.s5 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+JiraParserTest.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Parser</span><span class="s1">\</span><span class="s2">JiraParser</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Foundation</span><span class="s1">\</span><span class="s2">Testing</span><span class="s1">\</span><span class="s2">WithoutMiddleware</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Foundation</span><span class="s1">\</span><span class="s2">Testing</span><span class="s1">\</span><span class="s2">DatabaseMigrations</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Foundation</span><span class="s1">\</span><span class="s2">Testing</span><span class="s1">\</span><span class="s2">DatabaseTransactions</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">JiraParserTest </span><span class="s0">extends </span><span class="s2">TestCase</span><span class="s1"> 
+{ 
+    </span><span class="s0">public function </span><span class="s2">testParseJuraIssue</span><span class="s1">() 
+    { 
+        </span><span class="s3">$inputData </span><span class="s1">= </span><span class="s0">array</span><span class="s1">( 
+            </span><span class="s4">'key' </span><span class="s1">=&gt; </span><span class="s4">'testKey'</span><span class="s1">, 
+            </span><span class="s4">'fields' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                </span><span class="s4">'summary' </span><span class="s1">=&gt; </span><span class="s4">'testSummary'</span><span class="s1">, 
+                </span><span class="s4">'issuetype' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                    </span><span class="s4">'name' </span><span class="s1">=&gt; </span><span class="s4">'testIssue'</span><span class="s1">, 
+                    </span><span class="s4">'id' </span><span class="s1">=&gt; </span><span class="s5">1</span><span class="s1"> 
+                ), 
+                </span><span class="s4">'project' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                    </span><span class="s4">'key' </span><span class="s1">=&gt; </span><span class="s4">'testKey'</span><span class="s1"> 
+                ), 
+                </span><span class="s4">'customfield_10363' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                    </span><span class="s4">'name' </span><span class="s1">=&gt; </span><span class="s4">'devTeam'</span><span class="s1"> 
+                ), 
+                </span><span class="s4">'reporter' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                    </span><span class="s4">'displayName' </span><span class="s1">=&gt; </span><span class="s4">'test'</span><span class="s1"> 
+                ), 
+                </span><span class="s4">'customfield_10023' </span><span class="s1">=&gt; </span><span class="s5">5</span><span class="s1">, 
+                </span><span class="s4">'parent' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                    </span><span class="s4">'key' </span><span class="s1">=&gt; </span><span class="s4">'testKey'</span><span class="s1">, 
+                    </span><span class="s4">'fields' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                        </span><span class="s4">'summary' </span><span class="s1">=&gt; </span><span class="s4">'testSummary'</span><span class="s1"> 
+                    ), 
+                ), 
+                </span><span class="s4">'customfield_10560' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                    </span><span class="s4">'[,name=W-Sprint 17.11.2015,]'</span><span class="s1"> 
+                ), 
+                </span><span class="s4">'subtasks' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">() 
+            ) 
+        ); 
+ 
+        </span><span class="s3">$expectedResult </span><span class="s1">= </span><span class="s0">array</span><span class="s1">( 
+            </span><span class="s4">'key' </span><span class="s1">=&gt; </span><span class="s4">'testKey'</span><span class="s1">, 
+            </span><span class="s4">'summary' </span><span class="s1">=&gt; </span><span class="s4">'testSummary'</span><span class="s1">, 
+            </span><span class="s4">'issueType' </span><span class="s1">=&gt; </span><span class="s4">'testIssue'</span><span class="s1">, 
+            </span><span class="s4">'issueTypeId' </span><span class="s1">=&gt; </span><span class="s5">1</span><span class="s1">, 
+            </span><span class="s4">'projectKey' </span><span class="s1">=&gt; </span><span class="s4">'testKey'</span><span class="s1">, 
+            </span><span class="s4">'devTeam' </span><span class="s1">=&gt; </span><span class="s4">'devTeam'</span><span class="s1">, 
+            </span><span class="s4">'reporter' </span><span class="s1">=&gt; </span><span class="s4">'test'</span><span class="s1">, 
+            </span><span class="s4">'storyPoints' </span><span class="s1">=&gt; </span><span class="s5">5</span><span class="s1">, 
+            </span><span class="s4">'hasSubTasks' </span><span class="s1">=&gt; </span><span class="s5">0</span><span class="s1">, 
+            </span><span class="s4">'parent' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                </span><span class="s4">'key' </span><span class="s1">=&gt; </span><span class="s4">'testKey'</span><span class="s1">, 
+                </span><span class="s4">'summary' </span><span class="s1">=&gt; </span><span class="s4">'testSummary'</span><span class="s1">, 
+            ), 
+            </span><span class="s4">'sprint' </span><span class="s1">=&gt; </span><span class="s4">'W-Sprint 17.11.2015'</span><span class="s1">, 
+        ); 
+ 
+        </span><span class="s3">$parser </span><span class="s1">= </span><span class="s0">new </span><span class="s2">JiraParser</span><span class="s1">(); 
+        </span><span class="s3">$result </span><span class="s1">= </span><span class="s3">$parser</span><span class="s1">-&gt;</span><span class="s2">parseIssue</span><span class="s1">(</span><span class="s3">$inputData</span><span class="s1">); 
+ 
+        </span><span class="s3">$this</span><span class="s1">-&gt;</span><span class="s2">assertEquals</span><span class="s1">(</span><span class="s3">$expectedResult</span><span class="s1">, </span><span class="s3">$result</span><span class="s1">); 
+    } 
+} 
+</span></pre>
+</body>
+</html>

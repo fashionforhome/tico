@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>JiraParser.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(102,0,0); }
+.s6 { color: rgb(0,128,0); font-weight: bold; }
+.s7 { font-style: italic; }
+.s8 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+JiraParser.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Parser</span><span class="s1">; 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Adapter</span><span class="s1">\</span><span class="s2">JiraAdapter</span><span class="s1">; 
+ 
+</span><span class="s3">/** 
+ * parses the response of the jira endpoint to a clean uniform data set 
+ * 
+ * Class JiraParser 
+ */</span><span class="s1"> 
+</span><span class="s0">class </span><span class="s2">JiraParser</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * parses the jira response and returns clean data set 
+     * 
+     * </span><span class="s4">@param </span><span class="s3">mixed[] $data 
+     * </span><span class="s4">@return </span><span class="s3">mixed[] 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">parseIssue</span><span class="s1">(</span><span class="s5">$data</span><span class="s1">) 
+    { 
+        </span><span class="s5">$cleanData </span><span class="s1">= </span><span class="s0">array</span><span class="s1">(); 
+ 
+        </span><span class="s3">// extract key</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'key'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'key'</span><span class="s1">]; 
+        </span><span class="s3">// extract summary</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'summary'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'summary'</span><span class="s1">]; 
+        </span><span class="s3">// extract issue type by name</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'issueType'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'issuetype'</span><span class="s1">][</span><span class="s6">'name'</span><span class="s1">]; 
+        </span><span class="s3">// extract issue type by Id</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'issueTypeId'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'issuetype'</span><span class="s1">][</span><span class="s6">'id'</span><span class="s1">]; 
+        </span><span class="s3">// extract PorjectKey</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'projectKey'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'project'</span><span class="s1">][</span><span class="s6">'key'</span><span class="s1">]; 
+        </span><span class="s3">// extract devTeam</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'devTeam'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'customfield_10363'</span><span class="s1">][</span><span class="s6">'name'</span><span class="s1">]; 
+        </span><span class="s3">// extract Reporter</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'reporter'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'reporter'</span><span class="s1">][</span><span class="s6">'displayName'</span><span class="s1">]; 
+ 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'customfield_10023'</span><span class="s1">])) { 
+            </span><span class="s3">// extract storypoints when set</span><span class="s1"> 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'storyPoints'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'customfield_10023'</span><span class="s1">]; 
+        } 
+ 
+        </span><span class="s3">// extract epic</span><span class="s1"> 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'customfield_10860'</span><span class="s1">])) { 
+            </span><span class="s5">$jiraAdapter </span><span class="s1">= </span><span class="s0">new </span><span class="s2">JiraAdapter</span><span class="s1">(); 
+ 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'epicData'</span><span class="s1">] = </span><span class="s5">$jiraAdapter</span><span class="s1">-&gt;</span><span class="s2">getEpicTicketData</span><span class="s1">(</span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'customfield_10860'</span><span class="s1">]); 
+        } 
+ 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s7">count</span><span class="s1">(</span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'subtasks'</span><span class="s1">]) &gt; </span><span class="s8">0</span><span class="s1">) { 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'hasSubTasks'</span><span class="s1">] = </span><span class="s8">1</span><span class="s1">; 
+        } </span><span class="s0">else </span><span class="s1">{ 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'hasSubTasks'</span><span class="s1">] = </span><span class="s8">0</span><span class="s1">; 
+        } 
+ 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s0">isset</span><span class="s1">(</span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'parent'</span><span class="s1">])) { 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'parent'</span><span class="s1">][</span><span class="s6">'key'</span><span class="s1">]     = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'parent'</span><span class="s1">][</span><span class="s6">'key'</span><span class="s1">]; 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'parent'</span><span class="s1">][</span><span class="s6">'summary'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'parent'</span><span class="s1">][</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'summary'</span><span class="s1">]; 
+        } 
+ 
+        </span><span class="s3">// extract sprint name</span><span class="s1"> 
+        </span><span class="s0">if </span><span class="s1">(</span><span class="s7">preg_match</span><span class="s1">(</span><span class="s6">&quot;/,name=([^,]+),/mi&quot;</span><span class="s1">, </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'customfield_10560'</span><span class="s1">][</span><span class="s8">0</span><span class="s1">], </span><span class="s5">$match</span><span class="s1">)) { 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'sprint'</span><span class="s1">] = </span><span class="s5">$match</span><span class="s1">[</span><span class="s8">1</span><span class="s1">]; 
+        } </span><span class="s0">else </span><span class="s1">{ 
+            </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'sprint'</span><span class="s1">] = </span><span class="s6">''</span><span class="s1">; 
+        } 
+ 
+        </span><span class="s0">return </span><span class="s5">$cleanData</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">$data 
+     * </span><span class="s4">@return </span><span class="s3">array 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">parseEpic</span><span class="s1">(</span><span class="s5">$data</span><span class="s1">) 
+    { 
+        </span><span class="s5">$cleanData </span><span class="s1">= </span><span class="s0">array</span><span class="s1">(); 
+ 
+        </span><span class="s3">// extract key</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'key'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'key'</span><span class="s1">]; 
+        </span><span class="s3">// extract summary</span><span class="s1"> 
+        </span><span class="s5">$cleanData</span><span class="s1">[</span><span class="s6">'summary'</span><span class="s1">] = </span><span class="s5">$data</span><span class="s1">[</span><span class="s6">'fields'</span><span class="s1">][</span><span class="s6">'summary'</span><span class="s1">]; 
+ 
+        </span><span class="s0">return </span><span class="s5">$cleanData</span><span class="s1">; 
+    } 
+}</span></pre>
+</body>
+</html>

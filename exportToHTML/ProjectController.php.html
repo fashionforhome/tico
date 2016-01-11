@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>ProjectController.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(102,0,0); }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+.s5 { color: rgb(128,128,128); font-style: italic; }
+.s6 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+ProjectController.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Controllers</span><span class="s1">; 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Project</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Ticket</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Request</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Requests</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Controllers</span><span class="s1">\</span><span class="s2">Controller</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">ProjectController </span><span class="s0">extends </span><span class="s2">Controller</span><span class="s1"> 
+{ 
+    </span><span class="s0">protected </span><span class="s3">$validationRules </span><span class="s1">= [ 
+        </span><span class="s4">'name' </span><span class="s1">=&gt; </span><span class="s4">'required|min:3'</span><span class="s1"> 
+    ]; 
+ 
+ 
+    </span><span class="s5">/** 
+     * Display a listing of the resource. 
+     * 
+     * </span><span class="s6">@return </span><span class="s5">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">index</span><span class="s1">() 
+    { 
+        </span><span class="s3">$projects </span><span class="s1">= </span><span class="s2">Project</span><span class="s1">::</span><span class="s2">all</span><span class="s1">(); 
+ 
+        </span><span class="s0">return </span><span class="s2">view</span><span class="s1">(</span><span class="s4">'projects.index'</span><span class="s1">)-&gt;</span><span class="s2">with</span><span class="s1">(</span><span class="s4">'projects'</span><span class="s1">, </span><span class="s3">$projects</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s5">/** 
+     * Show the form for creating a new resource. 
+     * 
+     * </span><span class="s6">@return </span><span class="s5">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">create</span><span class="s1">() 
+    { 
+        </span><span class="s0">return </span><span class="s2">view</span><span class="s1">(</span><span class="s4">'projects.create'</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s5">/** 
+     * </span><span class="s6">@param </span><span class="s5">Request $request 
+     * </span><span class="s6">@return </span><span class="s5">\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">store</span><span class="s1">(</span><span class="s2">Request </span><span class="s3">$request</span><span class="s1">) 
+    { 
+        </span><span class="s5">// validation</span><span class="s1"> 
+        </span><span class="s3">$this</span><span class="s1">-&gt;</span><span class="s2">validate</span><span class="s1">(</span><span class="s3">$request</span><span class="s1">, </span><span class="s3">$this</span><span class="s1">-&gt;</span><span class="s2">validationRules</span><span class="s1">); 
+        </span><span class="s3">$input </span><span class="s1">= </span><span class="s3">$request</span><span class="s1">-&gt;</span><span class="s2">all</span><span class="s1">(); 
+ 
+        </span><span class="s2">Project</span><span class="s1">::</span><span class="s2">create</span><span class="s1">(</span><span class="s3">$request</span><span class="s1">-&gt;</span><span class="s2">all</span><span class="s1">()); 
+ 
+        </span><span class="s0">return </span><span class="s2">redirect</span><span class="s1">(</span><span class="s4">'projects'</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s5">/** 
+     * Display the specified resource. 
+     * 
+     * </span><span class="s6">@param  </span><span class="s5">int $id 
+     * </span><span class="s6">@return </span><span class="s5">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">show</span><span class="s1">(</span><span class="s3">$id</span><span class="s1">) 
+    { 
+        </span><span class="s5">/** </span><span class="s6">@var </span><span class="s5">Project $project */</span><span class="s1"> 
+        </span><span class="s3">$project </span><span class="s1">= </span><span class="s2">Project</span><span class="s1">::</span><span class="s2">findOrFail</span><span class="s1">(</span><span class="s3">$id</span><span class="s1">); 
+ 
+        </span><span class="s0">return </span><span class="s2">view</span><span class="s1">(</span><span class="s4">'projects.show'</span><span class="s1">)-&gt;</span><span class="s2">with</span><span class="s1">(</span><span class="s4">'project'</span><span class="s1">, </span><span class="s3">$project</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s5">/** 
+     * Show the form for editing the specified resource. 
+     * 
+     * </span><span class="s6">@param  </span><span class="s5">int $id 
+     * </span><span class="s6">@return </span><span class="s5">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">edit</span><span class="s1">(</span><span class="s3">$id</span><span class="s1">) 
+    { 
+        </span><span class="s5">/** </span><span class="s6">@var </span><span class="s5">Project $project */</span><span class="s1"> 
+        </span><span class="s3">$project </span><span class="s1">= </span><span class="s2">Project</span><span class="s1">::</span><span class="s2">findOrFail</span><span class="s1">(</span><span class="s3">$id</span><span class="s1">); 
+ 
+        </span><span class="s0">return </span><span class="s2">view</span><span class="s1">(</span><span class="s4">'projects.edit'</span><span class="s1">)-&gt;</span><span class="s2">with</span><span class="s1">(</span><span class="s4">'project'</span><span class="s1">, </span><span class="s3">$project</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s5">/** 
+     * Update the specified resource in storage. 
+     * 
+     * </span><span class="s6">@param  </span><span class="s5">\Illuminate\Http\Request $request 
+     * </span><span class="s6">@param  </span><span class="s5">int $id 
+     * </span><span class="s6">@return </span><span class="s5">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">update</span><span class="s1">(</span><span class="s2">Request </span><span class="s3">$request</span><span class="s1">, </span><span class="s3">$id</span><span class="s1">) 
+    { 
+        </span><span class="s3">$this</span><span class="s1">-&gt;</span><span class="s2">validate</span><span class="s1">(</span><span class="s3">$request</span><span class="s1">, </span><span class="s3">$this</span><span class="s1">-&gt;</span><span class="s2">validationRules</span><span class="s1">); 
+ 
+        </span><span class="s5">/** </span><span class="s6">@var </span><span class="s5">Project $project */</span><span class="s1"> 
+        </span><span class="s3">$project </span><span class="s1">= </span><span class="s2">Project</span><span class="s1">::</span><span class="s2">findOrFail</span><span class="s1">(</span><span class="s3">$id</span><span class="s1">); 
+        </span><span class="s3">$project</span><span class="s1">-&gt;</span><span class="s2">update</span><span class="s1">(</span><span class="s3">$request</span><span class="s1">-&gt;</span><span class="s2">all</span><span class="s1">()); 
+ 
+        </span><span class="s0">return </span><span class="s2">redirect</span><span class="s1">(</span><span class="s4">'projects'</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s5">/** 
+     * Remove the specified resource from storage. 
+     * 
+     * </span><span class="s6">@param  </span><span class="s5">int $id 
+     * </span><span class="s6">@return </span><span class="s5">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">destroy</span><span class="s1">(</span><span class="s3">$id</span><span class="s1">) 
+    { 
+        </span><span class="s5">/** </span><span class="s6">@var </span><span class="s5">Project $project */</span><span class="s1"> 
+        </span><span class="s3">$project </span><span class="s1">= </span><span class="s2">Project</span><span class="s1">::</span><span class="s2">findOrFail</span><span class="s1">(</span><span class="s3">$id</span><span class="s1">); 
+ 
+        </span><span class="s5">/** </span><span class="s6">@var </span><span class="s5">Ticket $ticket */</span><span class="s1"> 
+        </span><span class="s0">foreach </span><span class="s1">(</span><span class="s3">$project</span><span class="s1">-&gt;</span><span class="s2">tickets</span><span class="s1">()-&gt;</span><span class="s2">get</span><span class="s1">() </span><span class="s0">as </span><span class="s3">$ticket</span><span class="s1">) { 
+            </span><span class="s3">$ticket</span><span class="s1">-&gt;</span><span class="s2">delete</span><span class="s1">(); 
+        } 
+ 
+        </span><span class="s3">$project</span><span class="s1">-&gt;</span><span class="s2">delete</span><span class="s1">(); 
+ 
+        </span><span class="s0">return </span><span class="s2">redirect</span><span class="s1">(</span><span class="s4">'projects'</span><span class="s1">); 
+    } 
+} 
+</span></pre>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>XsltToFoTicketConverter.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(102,0,0); }
+.s6 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+XsltToFoTicketConverter.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Converter</span><span class="s1">; 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Serializer</span><span class="s1">\</span><span class="s2">XMLSerializer</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Log</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">XsltToFoTicketConverter</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * </span><span class="s4">@param </span><span class="s3">array $ticket 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">convertTicket</span><span class="s1">(</span><span class="s5">$ticket</span><span class="s1">) 
+    { 
+        </span><span class="s5">$processor        </span><span class="s1">= </span><span class="s0">new </span><span class="s1">\</span><span class="s2">XSLTProcessor</span><span class="s1">(); 
+        </span><span class="s5">$xmlSerializer    </span><span class="s1">= </span><span class="s0">new </span><span class="s2">XMLSerializer</span><span class="s1">(); 
+        </span><span class="s5">$serializedTicket </span><span class="s1">= </span><span class="s5">$xmlSerializer</span><span class="s1">-&gt;</span><span class="s2">serialize</span><span class="s1">(</span><span class="s5">$ticket</span><span class="s1">); 
+        </span><span class="s5">$dom              </span><span class="s1">= </span><span class="s0">new </span><span class="s1">\</span><span class="s2">DOMDocument</span><span class="s1">(); 
+ 
+        </span><span class="s5">$dom</span><span class="s1">-&gt;</span><span class="s2">loadXML</span><span class="s1">(</span><span class="s5">$serializedTicket</span><span class="s1">); 
+        </span><span class="s5">$processor</span><span class="s1">-&gt;</span><span class="s2">registerPHPFunctions</span><span class="s1">(</span><span class="s6">'config'</span><span class="s1">); 
+ 
+        </span><span class="s0">try </span><span class="s1">{ 
+            </span><span class="s5">$stylesheet </span><span class="s1">= </span><span class="s0">new </span><span class="s1">\</span><span class="s2">DOMDocument</span><span class="s1">(); 
+            </span><span class="s5">$stylesheet</span><span class="s1">-&gt;</span><span class="s2">load</span><span class="s1">(</span><span class="s2">config</span><span class="s1">(</span><span class="s6">'printer.XSLTemplatePath'</span><span class="s1">)); 
+ 
+            </span><span class="s5">$processor</span><span class="s1">-&gt;</span><span class="s2">importStylesheet</span><span class="s1">(</span><span class="s5">$stylesheet</span><span class="s1">); 
+            </span><span class="s5">$doc </span><span class="s1">= </span><span class="s5">$processor</span><span class="s1">-&gt;</span><span class="s2">transformToDoc</span><span class="s1">(</span><span class="s5">$dom</span><span class="s1">); 
+ 
+            </span><span class="s5">$doc</span><span class="s1">-&gt;</span><span class="s2">save</span><span class="s1">(</span><span class="s2">config</span><span class="s1">(</span><span class="s6">'printer.foOutputPath'</span><span class="s1">)); 
+        } </span><span class="s0">catch </span><span class="s1">(\</span><span class="s2">Exception </span><span class="s5">$e</span><span class="s1">) { 
+            </span><span class="s2">Log</span><span class="s1">::</span><span class="s2">error</span><span class="s1">(</span><span class="s5">$e</span><span class="s1">-&gt;</span><span class="s2">getMessage</span><span class="s1">()); 
+        } 
+    } 
+}</span></pre>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>show.blade.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { }
+.s4 { }
+.s5 { color: rgb(0,0,128); font-weight: bold; }
+.s6 { color: rgb(102,0,0); }
+.s7 { color: rgb(0,0,0); }
+.s8 { color: rgb(0,0,255); font-weight: bold; }
+.s9 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+show.blade.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">@extends(</span><span class="s2">'app'</span><span class="s0">)</span><span class="s3"> 
+ 
+</span><span class="s0">@section(</span><span class="s2">'content'</span><span class="s0">)</span><span class="s3"> 
+    </span><span class="s4">&lt;</span><span class="s5">h2</span><span class="s4">&gt;</span><span class="s3">Project Name: {{</span><span class="s6">$project</span><span class="s1">-&gt;</span><span class="s7">name</span><span class="s3">}}</span><span class="s4">&lt;/</span><span class="s5">h2</span><span class="s4">&gt;</span><span class="s3"> 
+    </span><span class="s4">&lt;</span><span class="s5">hr</span><span class="s4">&gt;</span><span class="s3"> 
+        </span><span class="s4">&lt;</span><span class="s5">project</span><span class="s4">&gt;</span><span class="s3"> 
+            </span><span class="s4">&lt;</span><span class="s5">div </span><span class="s8">class=</span><span class="s9">&quot;body&quot;</span><span class="s4">&gt;</span><span class="s3">ID: {{</span><span class="s6">$project</span><span class="s1">-&gt;</span><span class="s7">id</span><span class="s3">}}</span><span class="s4">&lt;/</span><span class="s5">div</span><span class="s4">&gt;</span><span class="s3"> 
+        </span><span class="s4">&lt;/</span><span class="s5">project</span><span class="s4">&gt;</span><span class="s3"> 
+</span><span class="s0">@stop</span></pre>
+</body>
+</html>

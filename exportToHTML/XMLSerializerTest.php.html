@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>XMLSerializerTest.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(102,0,0); }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
+.s6 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+XMLSerializerTest.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">&lt;?php</span><span class="s1"> 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Model</span><span class="s1">\</span><span class="s2">Serializer</span><span class="s1">\</span><span class="s2">XMLSerializer</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Foundation</span><span class="s1">\</span><span class="s2">Testing</span><span class="s1">\</span><span class="s2">WithoutMiddleware</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Foundation</span><span class="s1">\</span><span class="s2">Testing</span><span class="s1">\</span><span class="s2">DatabaseMigrations</span><span class="s1">; 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Foundation</span><span class="s1">\</span><span class="s2">Testing</span><span class="s1">\</span><span class="s2">DatabaseTransactions</span><span class="s1">; 
+ 
+</span><span class="s0">class </span><span class="s2">XMLSerializerTest </span><span class="s0">extends </span><span class="s2">TestCase</span><span class="s1"> 
+{ 
+    </span><span class="s3">/** 
+     * test if serialize returns proper XML 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">testSerialize</span><span class="s1">() 
+    { 
+        </span><span class="s4">$testInput </span><span class="s1">= </span><span class="s0">array</span><span class="s1">( 
+            </span><span class="s5">'key' </span><span class="s1">=&gt; </span><span class="s5">'testKey'</span><span class="s1">, 
+            </span><span class="s5">'summary' </span><span class="s1">=&gt; </span><span class="s5">'testSummary'</span><span class="s1">, 
+            </span><span class="s5">'issueType' </span><span class="s1">=&gt; </span><span class="s5">'testIssue'</span><span class="s1">, 
+            </span><span class="s5">'issueTypeId' </span><span class="s1">=&gt; </span><span class="s6">1</span><span class="s1">, 
+            </span><span class="s5">'projectKey' </span><span class="s1">=&gt; </span><span class="s5">'testKey'</span><span class="s1">, 
+            </span><span class="s5">'devTeam' </span><span class="s1">=&gt; </span><span class="s5">'devTeam'</span><span class="s1">, 
+            </span><span class="s5">'reporter' </span><span class="s1">=&gt; </span><span class="s5">'test'</span><span class="s1">, 
+            </span><span class="s5">'storyPoints' </span><span class="s1">=&gt; </span><span class="s6">5</span><span class="s1">, 
+            </span><span class="s5">'hasSubTasks' </span><span class="s1">=&gt; </span><span class="s6">0</span><span class="s1">, 
+            </span><span class="s5">'parent' </span><span class="s1">=&gt; </span><span class="s0">array</span><span class="s1">( 
+                </span><span class="s5">'key' </span><span class="s1">=&gt; </span><span class="s5">'testKey'</span><span class="s1">, 
+                </span><span class="s5">'summary' </span><span class="s1">=&gt; </span><span class="s5">'testSummary'</span><span class="s1">, 
+            ), 
+            </span><span class="s5">'sprint' </span><span class="s1">=&gt; </span><span class="s5">'W-Sprint 17.11.2015'</span><span class="s1">, 
+        ); 
+ 
+        </span><span class="s4">$xmlSerializer    </span><span class="s1">= </span><span class="s0">new </span><span class="s2">XMLSerializer</span><span class="s1">(); 
+        </span><span class="s4">$expectedResult   </span><span class="s1">= </span><span class="s5">'&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;ticket&gt;&lt;key&gt;testKey&lt;/key&gt;&lt;reporter&gt;test&lt;/reporter&gt;&lt;issueType&gt;testIssue&lt;/issueType&gt;&lt;sprint&gt;W-Sprint 17.11.2015&lt;/sprint&gt;&lt;summary&gt;testSummary&lt;/summary&gt;&lt;devTeam&gt;devTeam&lt;/devTeam&gt;&lt;hasSubTasks&gt;0&lt;/hasSubTasks&gt;&lt;storyPoints&gt;5&lt;/storyPoints&gt;&lt;/ticket&gt;'</span><span class="s1">; 
+        </span><span class="s4">$unExpectedResult </span><span class="s1">= </span><span class="s5">'&lt;ticket&gt;&lt;key&gt;testKey&lt;/key&gt;&lt;reporter&gt;test&lt;/reporter&gt;&lt;issueType&gt;testIssue&lt;/issueType&gt;&lt;sprint&gt;W-Sprint 17.11.2015&lt;/sprint&gt;&lt;summary&gt;testSummary&lt;/summary&gt;&lt;devTeam&gt;devTeam&lt;/devTeam&gt;&lt;hasSubTasks&gt;0&lt;/hasSubTasks&gt;&lt;storyPoints&gt;5&lt;/storyPoints&gt;&lt;/ticket&gt;'</span><span class="s1">; 
+ 
+        </span><span class="s4">$this</span><span class="s1">-&gt;</span><span class="s2">assertEquals</span><span class="s1">(</span><span class="s4">$expectedResult</span><span class="s1">, </span><span class="s4">$xmlSerializer</span><span class="s1">-&gt;</span><span class="s2">serialize</span><span class="s1">(</span><span class="s4">$testInput</span><span class="s1">), </span><span class="s5">'Xml is not build properly'</span><span class="s1">); 
+        </span><span class="s4">$this</span><span class="s1">-&gt;</span><span class="s2">assertNotEquals</span><span class="s1">(</span><span class="s4">$unExpectedResult</span><span class="s1">, </span><span class="s4">$xmlSerializer</span><span class="s1">-&gt;</span><span class="s2">serialize</span><span class="s1">(</span><span class="s4">$testInput</span><span class="s1">), </span><span class="s5">'XML header is missing'</span><span class="s1">); 
+    } 
+} 
+</span></pre>
+</body>
+</html>
