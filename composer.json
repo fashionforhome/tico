@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "name": "fashionforhome/tico",
+    "description": "This Tool is for printing JIRA tickets by ticket numbers on DIN A6 paper to manage your projects on a physical Kanban/Scrum board.",
+    "keywords": ["framework", "laravel", "jira", "ticket", "printer", "board", "kanban", "scrum"],
+    "license": "GPL-3.0",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
