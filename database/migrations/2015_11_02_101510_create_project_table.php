@@ -13,7 +13,7 @@ class CreateProjectTable extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+            $table->increments('id')->unsingned();
 			$table->string('name');
         });
     }

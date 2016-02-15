@@ -15,7 +15,7 @@
 	@endif
 	
 	@if(Session::has('error_message'))
-		<strong> {{ config('printer.errorMessage') }}</strong>
+		<strong> {{ config('jira.errorMessage') }}</strong>
 		<div class="alert alert-warning">
 			{{Session::get('error_message')}}
 		</div>

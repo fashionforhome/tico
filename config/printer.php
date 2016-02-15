@@ -11,5 +11,6 @@ return array(
 		'MotherShip' => storage_path() . '/images/mothership.png'
 	),
 	'successMessage' => 'Your Tickets will be printed now',
+	'noTicketsMessage' => 'There were no Tickets selected to print',
 	'errorMessage' => 'The following tickets could not be printed: '
 );

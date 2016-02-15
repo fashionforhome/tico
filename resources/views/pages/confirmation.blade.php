@@ -7,7 +7,7 @@
 		<img class="left" src="images/logo.gif" width="100"/>
 		<h2>Folgende Tickets wurden bereits gedruckt, sollen sie erneut gedruckt werden?</h2>
 	</div>
-
+<a href="{{ action('IndexController@index')}}">Back to TicketPrinter</a>
 	{!! Form::open(['action' =>'IndexController@printAction']) !!}
 
 	<ul class="list-group">

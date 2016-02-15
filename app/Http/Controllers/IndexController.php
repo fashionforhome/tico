@@ -85,6 +85,10 @@ class IndexController extends Controller
 	 */
 	public function printAction(Request $request)
 	{
+		if (empty($request['tickets'])) {
+			return redirect('/');
+		}
+
 		$freshTickets = explode(',', $request['tickets']);
 
 		foreach ($request->all() as $key => $value) {
