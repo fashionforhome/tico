@@ -1,5 +1,10 @@
+.idea
+.vagrant
 /vendor
 /node_modules
 Homestead.yaml
 Homestead.json
 .env
+.gitignore
+database.sqlite
+logs/

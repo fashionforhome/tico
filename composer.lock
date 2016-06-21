@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8143327323a4a3567ebc3f31036dd3aa",
-    "content-hash": "dfb026a105e53e4265005661a45853da",
+    "hash": "2c3a93b012e9f3f189060674bf7e8388",
+    "content-hash": "6f43fd32d42bd9a3b7afe1cb5d2a13da",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2715,6 +2715,43 @@
                 "xunit"
             ],
             "time": "2015-10-02 06:51:40"
+        },
+        {
+            "name": "rebel-l/sisa",
+            "version": "1.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/Rebel-L/sisa.git",
+                "reference": "adccd6653a34cda9f0bb2dd9feb4bec02905579f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/Rebel-L/sisa/get/adccd6653a34cda9f0bb2dd9feb4bec02905579f.zip",
+                "reference": "adccd6653a34cda9f0bb2dd9feb4bec02905579f",
+                "shasum": ""
+            },
+            "type": "project",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Rebel L",
+                    "email": "dj@rebel-l.net",
+                    "homepage": "https://bitbucket.org/Rebel-L",
+                    "role": "CTO"
+                }
+            ],
+            "description": "This package provides you chef cookbooks for setting up servers for web applications based on PHP using Vagrant, Virtual Box and Chef Solo. You'll find more details in the README.md",
+            "homepage": "https://bitbucket.org/Rebel-L/sisa",
+            "keywords": [
+                "chef",
+                "configuration management",
+                "provisioning",
+                "server"
+            ],
+            "time": "2016-05-22 19:18:49"
         },
         {
             "name": "sebastian/comparator",
