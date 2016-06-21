@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c3a93b012e9f3f189060674bf7e8388",
-    "content-hash": "6f43fd32d42bd9a3b7afe1cb5d2a13da",
+    "hash": "ac63f2757aeb8dbbcfb34b352ad04841",
+    "content-hash": "180816063864269601702e39ad349160",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2718,16 +2718,16 @@
         },
         {
             "name": "rebel-l/sisa",
-            "version": "1.5.5",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/Rebel-L/sisa.git",
-                "reference": "adccd6653a34cda9f0bb2dd9feb4bec02905579f"
+                "reference": "d6b109b33f121382a8b6c11b881d65d92b2c4cbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/Rebel-L/sisa/get/adccd6653a34cda9f0bb2dd9feb4bec02905579f.zip",
-                "reference": "adccd6653a34cda9f0bb2dd9feb4bec02905579f",
+                "url": "https://bitbucket.org/Rebel-L/sisa/get/d6b109b33f121382a8b6c11b881d65d92b2c4cbd.zip",
+                "reference": "d6b109b33f121382a8b6c11b881d65d92b2c4cbd",
                 "shasum": ""
             },
             "type": "project",
@@ -2751,7 +2751,7 @@
                 "provisioning",
                 "server"
             ],
-            "time": "2016-05-22 19:18:49"
+            "time": "2016-05-15 01:43:39"
         },
         {
             "name": "sebastian/comparator",

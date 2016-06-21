@@ -23,6 +23,7 @@ Vagrant.configure(2) do |config|
         chef.environment = "development"
         chef.add_role "Default"
         chef.add_recipe "NodeJs"
+        chef.add_recipe "Php::composer"
 
         chef.json = {
             'Iptables' => {
