@@ -14,5 +14,13 @@
 	@include('projects.partials.button', ['submitButtonText' => 'Delete Project'])
 {!! Form::close() !!}
 
+	<p>
+		<a href="{{ action('ProjectController@index')}}" class="btn btn-primary" role="button">Back to Project Overview</a>
+	</p>
+
+	<p>
+		<a href="{{ action('IndexController@index')}}" class="btn btn-primary" role="button">Back to Ticketprinter</a>
+	</p>
+
 	@include('errors.list')
 @stop

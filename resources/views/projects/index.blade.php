@@ -2,9 +2,6 @@
 
 @section('content')
 	<h1>Projects</h1>
-	<p>
-		<a href="{{ action('IndexController@index')}}">Back to TicketPrinter</a>
-	</p>
 	<hr>
 	@foreach ($projects as $project)
 		<h2>
@@ -19,4 +16,8 @@
     <p>
 		<a href="{{ action('ProjectController@create')}}" class="btn btn-primary" role="button">Create new Project</a>
     </p>
+
+	<p>
+		<a href="{{ action('IndexController@index')}}" class="btn btn-primary" role="button">Back to Ticketprinter</a>
+	</p>
 @stop
