@@ -2,5 +2,11 @@
 
 return array(
 	'baseUrl' => 'https://[your_company].atlassian.net/rest/api/2/issue/',
-	'errorMessage' => 'The following tickets could not be printed: '
+	'errorMessage' => 'The following tickets could not be printed: ',
+    'customFields' => array(
+        'devTeam' => '',
+        'epic' => '',
+        'sprintName' => '',
+        'storyPoints' => ''
+    )
 );

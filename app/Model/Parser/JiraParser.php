@@ -23,29 +23,41 @@ class JiraParser
 
 		// extract key
 		$cleanData['key'] = $data['key'];
-		// extract summary
+
+        // extract summary
 		$cleanData['summary'] = $data['fields']['summary'];
-		// extract issue type by name
+
+        // extract issue type by name
 		$cleanData['issueType'] = $data['fields']['issuetype']['name'];
-		// extract issue type by Id
+
+        // extract issue type by Id
 		$cleanData['issueTypeId'] = $data['fields']['issuetype']['id'];
-		// extract PorjectKey
+
+        // extract PorjectKey
 		$cleanData['projectKey'] = $data['fields']['project']['key'];
-		// extract devTeam
-		$cleanData['devTeam'] = $data['fields']['customfield_10363']['name'];
-		// extract Reporter
+
+        // extract devTeam
+        $cleanData['devTeam'] = '';
+        if ($this->validateCustomField('jira.customFields.devTeam', $data) === true) {
+            $cleanData['devTeam'] = $data['fields'][$this->getConfig('jira.customFields.devTeam')]['name'];
+        }
+
+        // extract Reporter
 		$cleanData['reporter'] = $data['fields']['reporter']['displayName'];
 
-		if (isset($data['fields']['customfield_10023'])) {
-			// extract storypoints when set
-			$cleanData['storyPoints'] = $data['fields']['customfield_10023'];
+        // extract storypoints
+        $cleanData['storyPoints'] = '';
+		if ($this->validateCustomField('jira.customFields.storyPoints', $data) === true) {
+			$cleanData['storyPoints'] = $data['fields'][$this->getConfig('jira.customFields.storyPoints')];
 		}
 
 		// extract epic
-		if (isset($data['fields']['customfield_10860'])) {
+		if ($this->validateCustomField('jira.customFields.epic', $data) === true) {
 			$jiraAdapter = new JiraAdapter();
 
-			$cleanData['epicData'] = $jiraAdapter->getEpicTicketData($data['fields']['customfield_10860']);
+			$cleanData['epicData'] = $jiraAdapter->getEpicTicketData(
+			    $data['fields'][$this->getConfig('jira.customFields.epic')]
+            );
 		}
 
 		if (count($data['fields']['subtasks']) > 0) {
@@ -60,11 +72,13 @@ class JiraParser
 		}
 
 		// extract sprint name
-		if (preg_match("/,name=([^,]+),/mi", $data['fields']['customfield_10560'][0], $match)) {
-			$cleanData['sprint'] = $match[1];
-		} else {
-			$cleanData['sprint'] = '';
-		}
+        if ($this->validateCustomField('jira.customFields.sprintName', $data) === true) {
+            if (preg_match("/,name=([^,]+),/mi", $data['fields'][$this->getConfig('jira.customFields.sprintName')][0], $match)) {
+                $cleanData['sprint'] = $match[1];
+            } else {
+                $cleanData['sprint'] = '';
+            }
+        }
 
 		return $cleanData;
 	}
@@ -84,4 +98,41 @@ class JiraParser
 
 		return $cleanData;
 	}
+
+    /**
+     * Validates that a custom field is configured correctly and the Jira response contents data for that custom field.
+     *
+     * @param string $configKey
+     * @param array $ticketData
+     * @return bool
+     */
+	public function validateCustomField($configKey, array $ticketData)
+    {
+        $config = $this->getConfig($configKey);
+        if (empty($config) === true) {
+            return false;
+        }
+
+        if (isset($ticketData['fields'][$config]) === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the config to a given key.
+     *
+     * @codeCoverageIgnore
+     * @param string $key The key of the value you want to get.
+     * @return mixed|null
+     */
+    protected function getConfig($key)
+    {
+        if (is_string($key) === false) {
+            return null;
+        }
+
+        return config($key);
+    }
 }
