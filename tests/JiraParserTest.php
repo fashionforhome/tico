@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class JiraParserTest extends TestCase
 {
-	public function testParseJuraIssue()
+	public function testParseJiraIssue()
 	{
 		$inputData = array(
 			'key' => 'testKey',
