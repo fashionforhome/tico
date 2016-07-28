@@ -1,2 +1,4 @@
-*.sqlite
+*
+!framework
+!logs
 !.gitignore
