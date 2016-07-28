@@ -8,3 +8,4 @@ Homestead.json
 .gitignore
 database.sqlite
 logs/
+jira.php
