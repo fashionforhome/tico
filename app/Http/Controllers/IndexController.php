@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
+use Psy\Exception\RuntimeException;
 use Session;
 
 class IndexController extends Controller
@@ -105,6 +106,7 @@ class IndexController extends Controller
 		/** @var TicketPrinter $ticketPrinter */
 		$ticketPrinter = new TicketPrinter($result['tickets']);
 		$ticketPrinter->printTickets();
+        $this->saveNewTickets($result['tickets']);
 
 		if (empty($result['errors']) == false) {
 			Session::flash('error_message', $this->buildErrorString($result['errors']));
@@ -123,14 +125,14 @@ class IndexController extends Controller
 	 */
 	private function buildTicketNames($ticketIds, $projectId)
 	{
-		$project     = Project::find($projectId);
-		$projectName = $project->name;
-		$result      = array();
-
+        $result = [];
+		$project = Project::find($projectId);
+        $ticket = new Ticket();
 		foreach ($ticketIds as $ticketId) {
-			$result[] = $projectName . '-' . $ticketId;
-			$this->saveNewTicket($ticketId, $project->id);
-		}
+            $ticket->id = $ticketId;
+            $ticket->project = $project;
+			$result[] = $ticket->getTicketName();
+        }
 
 		return $result;
 	}
@@ -151,15 +153,19 @@ class IndexController extends Controller
 		return $errorString;
 	}
 
-	/**
-	 * @param $ticketId
-	 * @param $projectId
-	 */
-	private function saveNewTicket($ticketId, $projectId)
-	{
-		$ticket             = new Ticket;
-		$ticket->id         = $ticketId;
-		$ticket->project_id = $projectId;
-		$ticket->save();
+    /**
+     * Saves new tickets.
+     *
+     * @param array $tickets
+     */
+	private function saveNewTickets(array $tickets)
+    {
+	    foreach ($tickets as $ticket) {
+	        try {
+                $newTicket = new Ticket;
+                $newTicket->setTicketName($ticket['key']);
+                $newTicket->save();
+            } catch (RuntimeException $e) {}
+        }
 	}
 } 
