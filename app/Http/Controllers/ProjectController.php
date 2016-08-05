@@ -45,8 +45,6 @@ class ProjectController extends Controller
 	{
 		// validation
 		$this->validate($request, $this->validationRules);
-		$input = $request->all();
-
 		Project::create($request->all());
 
 		return redirect('projects');
