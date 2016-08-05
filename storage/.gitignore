@@ -1,4 +1,6 @@
 *
 !framework
 !logs
+!output
+!xslTemplates
 !.gitignore
