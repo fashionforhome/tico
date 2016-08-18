@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ac63f2757aeb8dbbcfb34b352ad04841",
-    "content-hash": "180816063864269601702e39ad349160",
+    "hash": "e43b3ca419b9147bd4beb6fc3bd07bde",
+    "content-hash": "a0ef40fb6ff9e413ac873c024e3969c4",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -405,6 +405,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+            "abandoned": "laravelcollective/html",
             "time": "2015-01-01 16:31:18"
         },
         {
@@ -2718,19 +2719,22 @@
         },
         {
             "name": "rebel-l/sisa",
-            "version": "1.5.4",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/Rebel-L/sisa.git",
-                "reference": "d6b109b33f121382a8b6c11b881d65d92b2c4cbd"
+                "reference": "5f1ef44c9b034adb1d68dfd2684a81a20753fae6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/Rebel-L/sisa/get/d6b109b33f121382a8b6c11b881d65d92b2c4cbd.zip",
-                "reference": "d6b109b33f121382a8b6c11b881d65d92b2c4cbd",
+                "url": "https://bitbucket.org/Rebel-L/sisa/get/5f1ef44c9b034adb1d68dfd2684a81a20753fae6.zip",
+                "reference": "5f1ef44c9b034adb1d68dfd2684a81a20753fae6",
                 "shasum": ""
             },
             "type": "project",
+            "extra": {
+                "branch-alias": []
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0"
@@ -2751,7 +2755,7 @@
                 "provisioning",
                 "server"
             ],
-            "time": "2016-05-15 01:43:39"
+            "time": "2016-08-18 18:43:35"
         },
         {
             "name": "sebastian/comparator",

@@ -30,10 +30,15 @@ Vagrant.configure(2) do |config|
             chef.add_recipe "NodeJs"
 
             chef.json = {
+                'Php'   => {
+                    'default'   => {
+                        'version'   => '5.6'
+                    }
+                },
                 'projects' => [
                     {
                         'name'			=> 'tico',
-                        'type'			=> 'php',
+                        'type'			=> 'php-simple',
                         'server_name'	=> 'tico.dev',
                         'root'			=> '/vagrant/public',
                         'index'			=> 'index.php'
