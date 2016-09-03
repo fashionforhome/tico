@@ -9,14 +9,15 @@
 		"illuminate/html" : "5.0.*",
 		"guzzlehttp/guzzle": "3.8.1",
         "laravel/framework": "5.1.*",
-		"goetas/apache-fop": "1.0.*"
+		"goetas/apache-fop": "1.0.*",
+        "phing/phing": "~2.14",
+        "rebel-l/sisa": "~1.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
-        "phpspec/phpspec": "~2.1",
-        "rebel-l/sisa": "1.6.0"
+        "phpspec/phpspec": "~2.1"
     },
     "autoload": {
         "classmap": [
