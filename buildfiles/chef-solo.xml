@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="chef-solo" basedir="." default="installChefSolo">
+	<target name="detectChefSoloVersion">
+		<exec command="chef-solo -v" returnProperty="tico.chef.exists" outputProperty="tico.chef.version" />
+	</target>
+	<target name="installChefSolo" depends="sudoMain, detectChefSoloVersion">
+		<if>
+			<equals arg1="0" arg2="${tico.chef.exists}" />
+			<then>
+				<echo message="${tico.chef.version}" />
+			</then>
+			<else>
+				<echo message="installing chef ..." />
+				<exec command="${tico.sudo.prefix} curl -L https://www.opscode.com/chef/install.sh | bash" checkreturn="true" />
+				<phingcall target="detectChefSoloVersion" />
+				<echo message="${tico.chef.version}" />
+			</else>
+		</if>
+	</target>
+</project>

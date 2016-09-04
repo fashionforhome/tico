@@ -21,5 +21,6 @@
     -->
     <target name="buildTico">
         <echo message="Building TiCo for environment: ${tico.environment} using buildfiles from ${tico.path.buildfiles}" />
+        <phingcall target="installChefSolo" />
     </target>
 </project>
