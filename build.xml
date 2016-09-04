@@ -19,8 +19,7 @@
     <!--
         Build the application
     -->
-    <target name="buildTico">
+    <target name="buildTico" depends="installChefSolo, chefSymlinksCreate">
         <echo message="Building TiCo for environment: ${tico.environment} using buildfiles from ${tico.path.buildfiles}" />
-        <phingcall target="installChefSolo" />
     </target>
 </project>
