@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="chef-symlinks" basedir="." default="chefSymlinksCreate">
-	<target name="chefSymlinksCreate" depends="sudoMain">
-		<symlink link="${tico.sisa.path}/cookbooks/TiCo" target="../../../../chef/cookbooks/TiCo" overwrite="true" />
-		<symlink link="${tico.sisa.path}/roles/TiCo.json" target="../../../../chef/roles/TiCo.json" overwrite="true" />
-	</target>
-</project>
