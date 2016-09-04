@@ -29,6 +29,14 @@ Vagrant.configure(2) do |config|
             chef.add_role "TiCo"
 
             chef.json = {
+                'TiCo'  => {
+                    'rootFolder' => '/vagrant',
+                    'debug' => true,
+                    'jira'  => {
+                        'user'  => 'myUser',
+                        'password' => 'myPassword'
+                    }
+                },
                 'projects' => [
                     {
                         'name'			=> 'tico',

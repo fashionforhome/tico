@@ -7,4 +7,12 @@
 # All rights reserved - Do Not Redistribute
 #
 
-Chef::Log.warn('TiCo läuft')
+#
+# Create application config
+#
+template "#{node['TiCo']['rootFolder']}/.env" do
+	source ".env.erb"
+	mode "0644"
+	owner "root"
+	group "root"
+end
