@@ -26,25 +26,9 @@ Vagrant.configure(2) do |config|
             chef.environments_path = "./vendor/rebel-l/sisa/environments"
             chef.data_bags_path = "./vendor/rebel-l/sisa/data_bags"
             chef.environment = "development"
-            chef.add_role "WebServer"
-            chef.add_recipe "NodeJs"
+            chef.add_role "TiCo"
 
             chef.json = {
-                'NodeJS'    => {
-                    'bower' => true,
-                    'gulp'  => true
-                },
-                'Php'   => {
-                    'default'   => {
-                        'version'   => '5.6'
-                    },
-                    'extensions'    => {
-                        'curl'      => true,
-                        'mbstring'  => true,
-                        'sqlite'    => true,
-                        'xsl'       => true
-                    }
-                },
                 'projects' => [
                     {
                         'name'			=> 'tico',

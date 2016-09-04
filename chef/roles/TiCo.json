@@ -1,0 +1,35 @@
+{
+	"name": "TiCo",
+	"default_attributes": {
+		"NodeJs": {
+			"bower": true,
+			"gulp": true
+		},
+		"Php": {
+			"default": {
+				"version": "5.6"
+			},
+			"extensions": {
+				"curl": true,
+				"mbstring": true,
+				"sqlite": true,
+				"xsl": true
+			}
+		},
+		"System": {
+			"Iptables": { "WEBSERVER": "On" }
+		}
+	},
+	"override_attributes": { },
+	"json_class": "Chef::Role",
+	"description": "This is the role for a TiCo application.",
+	"chef_type": "role",
+	"run_list": [
+		"role[WebServer]",
+		"recipe[Php::composer]",
+		"recipe[NodeJs]",
+		"recipe[Cups]",
+		"recipe[Fop]",
+		"recipe[TiCo]"
+	]
+}
