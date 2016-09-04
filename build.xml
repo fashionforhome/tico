@@ -3,12 +3,23 @@
     <!--
         Define properties and default values
     -->
-    <property name="environment" value="production" />
+    <property file="buildfiles/build.properties" />
+
+    <!--
+        Imports other build files
+    -->
+    <import>
+        <fileset dir="${tico.path.buildfiles}">
+            <patternset>
+                <include name="**/*.xml" />
+            </patternset>
+        </fileset>
+    </import>
 
     <!--
         Build the application
     -->
     <target name="build">
-        <echo message="Building TiCo for environment: ${environment}" />
+        <echo message="Building TiCo for environment: ${tico.environment} using buildfiles from ${tico.path.buildfiles}" />
     </target>
 </project>
