@@ -11,7 +11,7 @@
         "laravel/framework": "5.1.*",
 		"goetas/apache-fop": "1.0.*",
         "phing/phing": "~2.14",
-        "rebel-l/sisa": "~1.6"
+        "rebel-l/sisa": "~1.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

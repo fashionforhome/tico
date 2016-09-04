@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "47eef0a8b0e06fc9653d44b834b9adb6",
-    "content-hash": "7c1544eb07e55dcc3781a8900162216c",
+    "hash": "d48ec905a7516059f1d05ba64a21a253",
+    "content-hash": "e8bd94105bbb62adb20fb91d28e49d05",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1236,16 +1236,16 @@
         },
         {
             "name": "rebel-l/sisa",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/Rebel-L/sisa.git",
-                "reference": "9ed4e454ae492cb16a90863b6b5629e2a6699b64"
+                "reference": "46ba84642559ddb81a88ced40dcf18d7bed1d93d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/Rebel-L/sisa/get/9ed4e454ae492cb16a90863b6b5629e2a6699b64.zip",
-                "reference": "9ed4e454ae492cb16a90863b6b5629e2a6699b64",
+                "url": "https://bitbucket.org/Rebel-L/sisa/get/46ba84642559ddb81a88ced40dcf18d7bed1d93d.zip",
+                "reference": "46ba84642559ddb81a88ced40dcf18d7bed1d93d",
                 "shasum": ""
             },
             "type": "project",
@@ -1261,7 +1261,7 @@
                     "role": "CTO"
                 }
             ],
-            "description": "This package provides you chef cookbooks for setting up servers for web applications based on PHP using Vagrant, Virtual Box and Chef Solo. You'll find more details in the README.md",
+            "description": "This package provides you chef cookbooks for setting up servers for web applications based on PHP, NodeJS or Golang using Vagrant, Virtual Box and Chef Solo. You'll find more details in the README.md",
             "homepage": "https://bitbucket.org/Rebel-L/sisa",
             "keywords": [
                 "chef",
@@ -1269,7 +1269,7 @@
                 "provisioning",
                 "server"
             ],
-            "time": "2016-08-19 13:55:10"
+            "time": "2016-09-03 22:31:02"
         },
         {
             "name": "swiftmailer/swiftmailer",

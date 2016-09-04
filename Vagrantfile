@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-    config.vm.box = "Ubuntu14"
+    config.vm.box = "Ubuntu14.04LTS"
     config.vm.box_url = "https://www.dropbox.com/s/gzbxpgjih67uu2t/ubuntu1404lts5018.box?dl=1"
     config.ssh.insert_key = false
 
@@ -30,9 +30,19 @@ Vagrant.configure(2) do |config|
             chef.add_recipe "NodeJs"
 
             chef.json = {
+                'NodeJS'    => {
+                    'bower' => true,
+                    'gulp'  => true
+                },
                 'Php'   => {
                     'default'   => {
                         'version'   => '5.6'
+                    },
+                    'extensions'    => {
+                        'curl'      => true,
+                        'mbstring'  => true,
+                        'sqlite'    => true,
+                        'xsl'       => true
                     }
                 },
                 'projects' => [
