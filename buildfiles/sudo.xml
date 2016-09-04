@@ -6,7 +6,8 @@
 		<if>
 			<equals arg1="0" arg2="${tico.sudo.return}" />
 			<then>
-				<property name="tico.issudo" value="1" override="true" />
+				<property name="tico.sudo.issudo" value="1" override="true" />
+				<property name="tico.sudo.prefix" value="sudo" override="true" />
 			</then>
 		</if>
 	</target>
@@ -14,13 +15,13 @@
 	<!-- check for root account -->
 	<target name="testroot">
 		<if>
-			<equals arg1="0" arg2="${tico.issudo}" />
+			<equals arg1="0" arg2="${tico.sudo.issudo}" />
 			<then>
 				<exec command="whoami" outputProperty="tico.sudo.output" />
 				<if>
 					<equals arg1="root" arg2="${tico.sudo.output}" />
 					<then>
-						<property name="tico.issudo" value="1" override="true" />
+						<property name="tico.sudo.issudo" value="1" override="true" />
 					</then>
 				</if>
 			</then>
@@ -30,7 +31,7 @@
 	<!-- check that we have sudo privileges, otherwise fail -->
 	<target name="issudo">
 		<if>
-			<equals arg1="1" arg2="${tico.issudo}" />
+			<equals arg1="1" arg2="${tico.sudo.issudo}" />
 			<then>
 				<echo message="You have sudo privileges, continue ..." />
 			</then>
