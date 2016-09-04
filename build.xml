@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="TiCo" default="build">
+<project name="TiCo" default="buildTico">
     <!--
         Define properties and default values
     -->
@@ -19,7 +19,7 @@
     <!--
         Build the application
     -->
-    <target name="build">
+    <target name="buildTico">
         <echo message="Building TiCo for environment: ${tico.environment} using buildfiles from ${tico.path.buildfiles}" />
     </target>
 </project>
