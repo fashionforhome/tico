@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="TiCo" basedir="." default="buildTico">
+<project name="TiCo" basedir="." default="ticoMain">
     <!--
         Define properties and default values
     -->
@@ -19,10 +19,22 @@
     <!--
         Build the application
     -->
-    <target name="buildTico">
+    <target name="ticoBuild">
+        <exec command="php artisan key:generate" passthru="true" />
+        <exec command="touch storage/database.sqlite" passthru="true" />
+        <exec command="chown -R root:root ./" />
+        <exec command="chmod -R 775 storage" />
+        <exec command="php artisan migrate" passthru="true" />
+    </target>
+
+    <!--
+        main target
+    -->
+    <target name="ticoMain">
         <echo message="Building TiCo for environment: ${tico.environment} using buildfiles from ${tico.path.buildfiles}" />
         <phingcall target="chefMain" />
         <!-- TODO: not development should execute chef-solo -->
         <phingcall target="nodejsMain" />
+        <phingcall target="ticoBuild" />
     </target>
 </project>
