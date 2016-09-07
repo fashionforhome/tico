@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="chef-solo" basedir="." default="chefMain">
+	<!--
+		detect chef-solo version
+	-->
+	<target name="detectChefSoloVersion">
+		<exec command="chef-solo -v" returnProperty="tico.chef.exists" outputProperty="tico.chef.version" />
+	</target>
+
+	<!--
+		installing chef solo
+	-->
+	<target name="installChefSolo" depends="detectChefSoloVersion">
+		<if>
+			<equals arg1="0" arg2="${tico.chef.exists}" />
+			<then>
+				<echo message="${tico.chef.version}" />
+			</then>
+			<else>
+				<echo message="installing chef ..." />
+				<exec command="curl -L https://www.opscode.com/chef/install.sh | bash" checkreturn="true" />
+				<phingcall target="detectChefSoloVersion" />
+				<echo message="${tico.chef.version}" />
+			</else>
+		</if>
+	</target>
+
+	<!--
+		copy the cookbook files
+	-->
+	<target name="chefCopyCookbook">
+		<mkdir dir="${tico.sisa.path}/cookbooks/TiCo" />
+		<copy todir="${tico.sisa.path}/cookbooks/TiCo/" overwrite="true">
+			<fileset dir="./chef/cookbooks/TiCo"></fileset>
+		</copy>
+		<copy file="./chef/roles/TiCo.json" todir="${tico.sisa.path}/roles/" overwrite="true" />
+	</target>
+
+	<!--
+		the main target
+	-->
+	<target name="chefMain">
+		<if>
+			<equals arg1="production" arg2="${tico.environment}" />
+			<then>
+				<phingcall target="installChefSolo" />
+			</then>
+		</if>
+		<phingcall target="chefCopyCookbook" />
+	</target>
+</project>

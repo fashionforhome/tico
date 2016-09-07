@@ -19,7 +19,10 @@
     <!--
         Build the application
     -->
-    <target name="buildTico" depends="installChefSolo, chefCopyCookbook">
+    <target name="buildTico">
         <echo message="Building TiCo for environment: ${tico.environment} using buildfiles from ${tico.path.buildfiles}" />
+        <phingcall target="chefMain" />
+        <!-- TODO: not development should execute chef-solo -->
+
     </target>
 </project>

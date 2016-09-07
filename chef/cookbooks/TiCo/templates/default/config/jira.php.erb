@@ -1,0 +1,12 @@
+<?php
+
+return array(
+	'baseUrl' => 'https://tausendkind.atlassian.net/rest/api/2/issue/',
+	'errorMessage' => 'The following tickets could not be printed: ',
+    'customFields' => array(
+        'devTeam' => '<%= node['TiCo']['jira']['customFields']['devTeam'] %>',
+        'epic' => '<%= node['TiCo']['jira']['customFields']['epic'] %>',
+        'sprintName' => '<%= node['TiCo']['jira']['customFields']['sprintName'] %>',
+        'storyPoints' => '<%= node['TiCo']['jira']['customFields']['storyPoints'] %>'
+    )
+);
