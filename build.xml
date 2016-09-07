@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="TiCo" default="buildTico">
+<project name="TiCo" basedir="." default="buildTico">
     <!--
         Define properties and default values
     -->
@@ -23,6 +23,6 @@
         <echo message="Building TiCo for environment: ${tico.environment} using buildfiles from ${tico.path.buildfiles}" />
         <phingcall target="chefMain" />
         <!-- TODO: not development should execute chef-solo -->
-
+        <phingcall target="nodejsMain" />
     </target>
 </project>

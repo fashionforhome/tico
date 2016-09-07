@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TiCo" basedir="." default="nodejsMain">
+    <!--
+        install bower components
+    -->
+    <target name="nodejsBowerComponents">
+        <exec command="bower install" />
+    </target>
+
+    <!--
+        install npm components
+    -->
+    <target name="nodejsNpmComponents">
+        <exec command="npm install" />
+    </target>
+
+    <!--
+        run gulp
+    -->
+    <target name="nodejsGulp">
+        <exec command="gulp" />
+    </target>
+
+    <!--
+        main target
+    -->
+    <target name="nodejsMain">
+        <phingcall target="nodejsNpmComponents" />
+        <phingcall target="nodejsBowerComponents" />
+        <phingcall target="nodejsGulp" />
+    </target>
+</project>
