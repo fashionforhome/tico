@@ -33,8 +33,15 @@ Vagrant.configure(2) do |config|
                     'rootFolder' => '/vagrant',
                     'debug' => true,
                     'jira'  => {
-                        'user'  => 'myUser',
-                        'password' => 'myPassword'
+                        'user'  => '',
+                        'password' => '',
+                        'baseUrl' => '',
+                        'customFields' => {
+                            'devTeam' => '',
+                            'epic' => '',
+                            'sprintName' => '',
+                            'storyPoints' => ''
+                        }
                     }
                 },
                 'projects' => [
